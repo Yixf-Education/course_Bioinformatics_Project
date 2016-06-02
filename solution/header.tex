@@ -1,0 +1,63 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage{fontspec}
+\setmainfont{Times New Roman}
+\setsansfont{Arial}
+\setmonofont{Courier New}
+
+\usepackage[BoldFont,SlantFont,CJKchecksingle,CJKnumber]{xeCJK}
+\setCJKmainfont[BoldFont={Adobe Heiti Std},ItalicFont={Adobe Kaiti Std}]{Adobe Song Std}
+\setCJKsansfont{Adobe Heiti Std}
+\setCJKmonofont{Adobe Fangsong Std}
+\punctstyle{hangmobanjiao}
+
+\defaultfontfeatures{Mapping=tex-text}
+\usepackage{xunicode}
+\usepackage{xltxtra}
+
+\XeTeXlinebreaklocale "zh"
+\XeTeXlinebreakskip = 0pt plus 1pt minus 0.1pt
+
+%\usepackage{indentfirst}
+\makeatletter
+\let\@afterindentfalse\@afterindenttrue
+\@afterindenttrue
+\makeatother
+\setlength{\parindent}{2em}
+
+\linespread{1.5}
+
+\usepackage{xcolor}
+
+\usepackage[xetex,bookmarksnumbered=true,bookmarksopen=true,pdfborder=1,breaklinks,colorlinks,linkcolor=blue,urlcolor=blue,citecolor=blue]{hyperref}
+
+\usepackage[top=1.2in,bottom=1.2in,left=1.2in,right=1in]{geometry}
+
+%\usepackage[pagestyles]{titlesec}
+\usepackage{titlesec}
+%\titleformat{\section}{\centering\Large\bfseries}{\S\,\thesection}{1em}{}
+%\titleformat{\subsection}{\large\bfseries}{\S\,\thesubsection}{1em}{}
+
+\usepackage{graphicx}
+\graphicspath{{figures/}}
+
+\renewcommand{\today}{\number\year 年 \number\month 月 \number\day 日}
+\renewcommand{\contentsname}{目录}
+\renewcommand{\listfigurename}{插图目录}
+\renewcommand{\listtablename}{表格目录}
+\renewcommand{\figurename}{图}
+\renewcommand{\tablename}{表}
+%\renewcommand{\bibname}{参考文献}
+\renewcommand{\appendixname}{附录}
+\renewcommand{\indexname}{索引}
+\renewcommand{\abstractname}{摘要}
+\renewcommand{\refname}{参考文献}
+
+%\renewcommand{\equationautorefname}{公式}
+%\renewcommand{\footnoteautorefname}{脚注}
+%\renewcommand{\itemautorefname}{项}
+\renewcommand{\figureautorefname}{图}
+%\renewcommand{\tableautorefname}{表}
+%\renewcommand{\appendixautorefname}{附录}
+%\renewcommand{\theoremautorefname}{定理}
+

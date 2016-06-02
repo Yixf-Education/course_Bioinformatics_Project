@@ -1,0 +1,311 @@
+\input{header.tex}
+
+\begin{document}
+
+\title{生物信息学课程设计题目（2009级）}
+\author{伊现富}
+\date{\today}
+\maketitle
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+%数据库、软件、平台、数据集以purple表示
+%程序分组、子程序以blue表示
+%参数、选项以orange表示
+%参数值、选项值以cyan表示
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+%EMBOSS
+\begin{description}
+	\item[名称：] 基于EMBOSS平台对***基因进行序列分析
+	\item[总学时：] 36
+	\item[学分：] 2
+	\item[对象：] 生物医学工程系生物技术与生物信息专业本科生
+	\item[指导教师：] 伊现富
+	\item[课程设计目的：] 在学习分子生物学、生物计算技术、生物网络数据库、生物信息学课程的基础上，培养学生实际进行核酸序列和蛋白质序列分析的能力。此题目旨在帮助学生熟悉强大的EMBOSS生物信息学分析平台，并使用此平台进行基因序列与蛋白质序列的常规分析。
+	\item[实验内容] \
+		\begin{enumerate}
+			\item 从NCBI Gene数据库中获取自己感兴趣的基因的DNA序列。
+			\item 基因的核苷酸序列分析。
+				\begin{enumerate}
+					\item 统计该基因DNA序列的基本信息，如：长度、单核苷酸与二核苷酸的数目及频率、GC含量，等。
+					\item 找出该基因DNA序列中的CpG岛。
+					\item 提取该基因的编码区序列。
+					\item 分析编码区序列的密码子使用频率。
+					\item 寻找该基因序列中的ORF，与真实的编码区进行比较。
+				\end{enumerate}
+			\item 将编码区核苷酸序列翻译成氨基酸序列。
+			\item 蛋白质的氨基酸序列分析。
+				\begin{enumerate}
+					\item 对翻译得到的蛋白质进行基本的理化性质分析。
+					\item 寻找蛋白质中的功能与结构基序。
+					\item 预测蛋白质的二级结构。
+				\end{enumerate}
+			\item 利用所有结果，分析该基因的生物学功能与特性。
+		\end{enumerate}
+	\item[技术指标] \
+		\begin{enumerate}
+			\item 下载基因的GenBank格式的序列文件。
+			\item 利用GenBank文件中的注释信息，解读基因的基本信息（如基因全名、长度，所属物种，染色体定位，外显子、内含子等特征的位置，等）。
+			\item 基因的核苷酸序列分析结果。
+				\begin{enumerate}
+					\item 基因DNA序列的单核苷酸、二核苷酸频率，GC含量等统计结果。
+					\item CpG岛的预测结果及说明。
+					\item 基因编码区序列的GenBank格式文件。
+					\item 编码区的密码子使用频率与偏性分析。
+					\item 基因ORF预测结果及其分析。
+				\end{enumerate}
+			\item 基因编码区翻译后的氨基酸序列文件。
+			\item 蛋白质的氨基酸序列分析结果，即：蛋白质基本理化性质、基序及二级结构的分析结果。
+			\item 整合上述数据，分析基因的生物学功能与特性。
+			\item 课程设计报告书：（1）名称；（2）目的和任务；（3）实验步骤；（4）实验结果；（5）实验结果分析和讨论。
+			\item 课程设计答辩的PPT文件（答辩时间5分钟）。
+		\end{enumerate}
+	\item[实验步骤] \ 
+		\begin{enumerate}
+			\item 打开 \textcolor{purple}{NCBI Gene} 数据库，在搜索栏中输入基因名\textit{G}；在搜索结果中点击某个物种\textit{S}的链接，进入\textit{S}物种\textit{G}基因的信息界面；下拉至 \textcolor{orange}{NCBI Reference Sequences (RefSeq)} 项目，找到紧邻其下的 \textcolor{orange}{Genomic} 子项目，点击其中的 \textcolor{orange}{GenBank}；在新页面的右侧点击 \textcolor{orange}{Send：}，选择 \textcolor{orange}{File} 后，点击 \textcolor{orange}{Create File} 下载\textit{G}基因的GenBank格式的DNA序列。
+			\item 对基因的DNA序列进行分析。打开 \textcolor{purple}{EMBOSS explorer} 界面。 
+				\begin{enumerate}
+					\item 组成成分分析。找到 \textcolor{blue}{NUCLEIC COMPOSITION} 分组。
+						\begin{enumerate}
+							\item 使用程序 \textcolor{blue}{compseq} 对DNA序列的基本组成成分进行分析。在 \textcolor{orange}{Input section} 项目中，使用 \textcolor{orange}{upload} 上传上一步从NCBI下载的GenBank格式的DNA序列；在 \textcolor{orange}{Required section} 项目中，把 \textcolor{orange}{word size} 分别设成 \textcolor{cyan}{1、2}；其他参数默认，或者自行调整；最后，点击 \textcolor{orange}{Run compseq} 获得组成成分分析结果。
+							\item 尝试使用程序 \textcolor{blue}{wordcount} 进行类似的组成成分分析。 尝试使用程序 \textcolor{blue}{chaos} 和 \textcolor{blue}{density} 将组成成分结果可视化。
+						\end{enumerate}
+					\item GC含量分析。找到 \textcolor{blue}{NUCLEIC CPG ISLANDS} 分组。使用程序 \textcolor{blue}{geecee}对DNA序列的GC含量进行分析。与前述类似，以上传文件的方式提交DNA序列，之后点击\textcolor{orange}{Run geecee} 得到DNA序列的GC含量。
+					\item CpG岛分析。找到 \textcolor{blue}{NUCLEIC CPG ISLANDS} 分组。
+						\begin{enumerate}
+							\item 使用程序 \textcolor{blue}{newcpgreport} 寻找DNA序列中的CpG岛。上传DNA序列文件后，调整相应参数，点击 \textcolor{orange}{Run newcpgreport} 得到CpG岛的预测结果。
+							\item 使用程序 \textcolor{blue}{cpgplot} 直观观察CpG岛的预测结果。上传DNA序列并调整参数，点击 \textcolor{orange}{Run cpgplot} 得到图形化的CpG岛预测结果。
+							\item 尝试使用程序 \textcolor{blue}{cpgreport} 和 \textcolor{blue}{newcpgseek} 进行类似的CpG岛分析。
+						\end{enumerate}
+					\item 提取CDS序列。找到 \textcolor{blue}{FEATURE TABLES} 分组。
+						\begin{enumerate}
+							\item 使用程序 \textcolor{blue}{coderet} 提取基因中的CDS序列。上传DNA序列文件并调整输出格式为 \textcolor{cyan}{Genbank}，点击 \textcolor{orange}{Run coderet} 得到该基因Genbank格式的CDS序列。将其保存至本地以备后用。
+							\item 尝试使用程序 \textcolor{blue}{extractfeat} 提取CDS序列。尝试使用程序 \textcolor{blue}{showfeat} 将整个基因的特征可视化。
+						\end{enumerate}
+					\item 编码区密码子分析。找到 \textcolor{blue}{NUCLEIC CODON USAGE} 分组。
+						\begin{enumerate}
+							\item 使用程序 \textcolor{blue}{cusp} 计算CDS序列中密码子的使用频率。上传上一步保存的CDS序列文件，点击 \textcolor{orange}{Run cusp} 得到CDS序列的密码子使用频率。
+							\item 尝试使用程序 \textcolor{blue}{syco} 对CDS序列中的同义密码子使用频率进行分析。
+						\end{enumerate}
+					\item ORF预测与分析。找到 \textcolor{blue}{NUCLEIC GENE FINDING} 分组。
+						\begin{enumerate}
+							\item 使用程序 \textcolor{blue}{getorf} 找到基因中的ORF。上传基因的DNA序列并调整参数，点击 \textcolor{orange}{Run getorf} 获得全部的ORF序列。
+							\item 使用程序 \textcolor{blue}{plotorf} 和 \textcolor{blue}{showorf} 将基因中的ORF以图形方式直观显示出来。
+							\item 将上述步骤的ORF序列结果与图形结果结合起来，并与基因实际的CDS进行比较。
+						\end{enumerate}
+				\end{enumerate}
+			\item 翻译CDS序列。找到 \textcolor{blue}{NUCLEIC TRANSLATION} 分组。使用程序 \textcolor{blue}{transeq} 把CDS核苷酸序列翻译成氨基酸序列。上传CDS序列，调整参数与输出格式后，点击 \textcolor{orange}{Run transeq} 得到翻译后的氨基酸序列。将其保存以备后用。
+			\item 对蛋白质的氨基酸序列进行分析。
+				\begin{enumerate}
+					\item 组成成分与理化性质分析。找到 \textcolor{blue}{PROTEIN COMPOSITION} 分组。
+						\begin{enumerate}
+							\item 使用程序 \textcolor{blue}{pepstats} 分析蛋白质的基本理化性质。上传翻译得到的氨基酸序列，调整参数后点击 \textcolor{orange}{Run pepstats} 得到蛋白质的基本理化性质信息。
+							\item 使用程序 \textcolor{blue}{compseq} 查看蛋白质的基本组成成分。
+							\item 使用程序 \textcolor{blue}{iep} 计算蛋白质的等电点。
+							\item 尝试使用程序 \textcolor{blue}{charge} 获得每个氨基酸的带电量数据。尝试使用程序 \textcolor{blue}{octanol} 和 \textcolor{blue}{pepwindow} 对蛋白质的疏水性进行可视化。尝试使用程序 \textcolor{blue}{pepinfo} 对蛋白质氨基酸残基的极性进行分析。尝试使用 \textcolor{blue}{DISPLAY} 分组中的程序 \textcolor{blue}{pepnet} 和 \textcolor{blue}{pepwheel} 对蛋白质氨基酸残基的亲水性和疏水性进行可视化。
+						\end{enumerate}
+					\item 基序分析。找到 \textcolor{blue}{PROTEIN MOTIFS} 分组。
+						\begin{enumerate}
+							\item 使用程序 \textcolor{blue}{sigcleave} 寻找蛋白质中的信号切割位点。上传蛋白质序列后调整参数，点击 \textcolor{orange}{Run sigcleave} 找到蛋白质的信号切割为点。
+							\item 使用程序 \textcolor{blue}{sigcleave} 寻找蛋白质中的信号切割位点。上传蛋白质序列后调整参数，点击 \textcolor{orange}{Run sigcleave} 找到蛋白质的信号切割为点。
+							\item 使用程序 \textcolor{blue}{helixturnhelix} 寻找蛋白质上的核苷酸结合基序。上传蛋白质序列后调整参数，点击 \textcolor{orange}{Run helixturnhelix}寻找蛋白质上的核苷酸结合基序。
+							\item 尝试使用此分组中的其他程序（如：\textcolor{blue}{antigenic}）寻找更多的功能与结构基序。
+						\end{enumerate}
+					\item 结构分析。找到 \textcolor{blue}{PROTEIN 2D STRUCTURE} 分组。
+						\begin{enumerate}
+							\item 使用程序 \textcolor{blue}{garnier} 预测蛋白质的二级结构。上传蛋白质序列后调整参数，点击 \textcolor{orange}{Run garnier} 预测得到蛋白质的二级结构。
+							\item 使用程序 \textcolor{blue}{tmap} 预测蛋白质中的跨膜片段。上传蛋白质序列后，点击 \textcolor{orange}{Run tmap} 预测得到蛋白质中的跨膜片段。
+							\item 尝试使用此分组中的其他程序预测蛋白质的二级结构。
+						\end{enumerate}
+				\end{enumerate}
+			\item 整合上述所有结果，分析基因\textit{G}的生物学功能、特性等。
+		\end{enumerate}
+	\item[学时分配] \ 
+		\begin{description}
+			\item[设计讲解：] 2学时
+			\item[实验：] 18学时
+			\item[总结和课程设计报告：] 12学时 
+			\item[答辩：] 4学时
+			\item[总共：] 36学时 
+			\item[地点：] 教一楼205室生物信息学实验室 
+		\end{description}
+	\item[资源网站] \ 
+		\begin{enumerate}
+			\item EMBOSS官网：\href{http://emboss.sourceforge.net/}{http://emboss.sourceforge.net/}
+			\item EMBOSS explorer：\href{http://emboss.bioinformatics.nl/}{http://emboss.bioinformatics.nl/}；\href{http://bioinfo.nhri.org.tw/gui/}{http://bioinfo.nhri.org.tw/gui/}；\href{http://genome.csdb.cn/emboss/}{http://genome.csdb.cn/emboss/}
+			\item EMBOSS GUI：\href{http://anabench.bcm.umontreal.ca/html/EMBOSS/}{http://anabench.bcm.umontreal.ca/html/EMBOSS/}；\href{http://bips.u-strasbg.fr/EMBOSS/}{http://bips.u-strasbg.fr/EMBOSS/}
+			\item NCBI Gene：\href{http://www.ncbi.nlm.nih.gov/gene}{http://www.ncbi.nlm.nih.gov/gene}
+		\end{enumerate}
+\end{description}
+
+
+\newpage
+%Galaxy1
+\begin{description}
+	\item[名称：] 基于Galaxy平台分析***物种基因在基因组中的分布 
+	\item[总学时：] 36
+	\item[学分：] 2
+	\item[对象：] 生物医学工程系生物技术与生物信息专业本科生
+	\item[指导教师：] 伊现富
+	\item[课程设计目的：] 在学习分子生物学、生物计算技术、生物网络数据库、生物信息学课程的基础上，培养学生分析大规模基因组数据的能力。此题目旨在帮助学生熟悉易用、强大且日渐流行的Galaxy生物信息学分析平台，并使用此平台处理基因组数据，分析基因在每条染色体上的分布情况。
+	\item[实验内容] \
+		\begin{enumerate}
+			\item 选择合适的物种\textit{S}。
+			\item 熟悉Galaxy界面。
+			\item 获取该物种基因组范围的基因信息和每条染色体的长度。
+			\item 计算每条染色体上的基因数目。
+			\item 计算每条染色体上的基因密度。
+			\item 绘制条形图将数据结果可视化。
+			\item 结合数据表格和条形图分析结果。
+		\end{enumerate}
+	\item[技术指标] \
+		\begin{enumerate}
+			\item 基因组范围的基因数据。
+			\item 基因组上每条染色体的长度。
+			\item 每条染色体上的基因数目。
+			\item 每条染色体上的基因密度。
+			\item 基因数目与基因密度的条形图。
+			\item 对所得结果的分析与理解。
+			\item 课程设计报告书：（1）名称；（2）目的和任务；（3）实验步骤；（4）实验结果；（5）实验结果分析和讨论。
+			\item 课程设计答辩的PPT文件（答辩时间5分钟）。
+		\end{enumerate}
+	\item[实验步骤] \ 
+		\begin{enumerate}
+			\item 选择完成基因组测序且注释比较完善的物种，如：人、小鼠，等。\footnote{此处以“人”为例详述步骤。}
+			\item 打开 \textcolor{purple}{Galaxy Test} 主页，熟悉其界面布局。
+			\item 获取基因与染色体信息数据。
+				\begin{enumerate}
+					\item 获取基因信息。
+						\begin{enumerate}
+							\item 获取数据。打开 \textcolor{purple}{Galaxy} 的 \textcolor{blue}{Get Data} 分组，点击 \textcolor{blue}{UCSC Main} 进入 \textcolor{purple}{UCSC Table} 界面。在 \textcolor{purple}{UCSC Table} 界面中，\textcolor{orange}{clade} 选择 \textcolor{cyan}{Mammal}、\textcolor{orange}{genome} 选择 \textcolor{cyan}{Human}、\textcolor{orange}{assembly} 选择 \textcolor{cyan}{Feb. 2009 (GRCh37/hg19)}、\textcolor{orange}{group} 选择 \textcolor{cyan}{Genes and Gene Prediction Tracks}、\textcolor{orange}{track} 选择 \textcolor{cyan}{RefSeq Genes}、\textcolor{orange}{table} 选择 \textcolor{cyan}{refGene}、\textcolor{orange}{region} 点选 \textcolor{cyan}{genome}、\textcolor{orange}{output format} 选择 \textcolor{cyan}{BED – browser extensible data}、\textcolor{orange}{Send output to} 勾选 \textcolor{cyan}{Galaxy}、\textcolor{orange}{file type returned} 点选 \textcolor{cyan}{plain text}，之后点击 \textcolor{orange}{get output}，新界面中的 \textcolor{orange}{Create one BED record per} 点选 \textcolor{cyan}{Whole Gene}，最后点击 \textcolor{orange}{Send query to Galaxy} 即可将基因组中的基因信息载入到 \textcolor{purple}{Galaxy} 平台的工作空间中。
+							\item 修改属性。为了便于区分工作空间中的不同数据，可以点击 \textcolor{purple}{1：UCSC Main on Human: refGene (genome)} 右侧的铅笔图标，修改数据集的属性，如：修改 \textcolor{orange}{Name} 为 \textcolor{cyan}{refGene}，之后点击 \textcolor{orange}{Save} 更新其属性。
+						\end{enumerate}
+					\item 获取染色体长度。
+						\begin{enumerate}
+							\item 获取数据。在 \textcolor{purple}{UCSC Table} 界面中，修改 \textcolor{orange}{group} 为 \textcolor{cyan}{All Tables}、\textcolor{orange}{database} 为 \textcolor{cyan}{hg19}、\textcolor{orange}{table} 为 \textcolor{cyan}{chromInfo}，待界面刷新后，直接点击 \textcolor{orange}{get output} 并继续点击 \textcolor{orange}{Send query to Galaxy} 即可将染色体的长度信息载入到工作空间中。
+							\item 修改属性。为便于区分不同数据，可以点击 \textcolor{purple}{2：UCSC Main on Human: chromInfo (genome)} 右侧的铅笔图表，修改 \textcolor{orange}{Name} 为 \textcolor{cyan}{chromInfo}，点击 \textcolor{orange}{Save} 更新数据属性。
+						\end{enumerate}
+				\end{enumerate}
+			\item 计算基因数目。
+				\begin{enumerate}
+					\item
+					  计算每条染色体上的基因数目。打开 \textcolor{purple}{Galaxy} 的 \textcolor{blue}{Statistics} 分组，点击其中的 \textcolor{blue}{Count} 工具。其中，\textcolor{orange}{from dataset} 选择 \textcolor{cyan}{1：refGene}，\textcolor{orange}{Count occurrences of values in column(s)} 点选  \textcolor{cyan}{c1}，最后点击 \textcolor{orange}{Execute} 即可计算出每条染色体上的基因数目。同样修改数据的属性，把 \textcolor{orange}{Name} 改为 \textcolor{cyan}{geneOnChromAll}。
+					\item 过滤数据。打开 \textcolor{purple}{Galaxy} 的 \textcolor{blue}{Filter and Sort} 分组，点击其中的 \textcolor{blue}{Select} 工具。其中，\textcolor{orange}{Select lines from} 选择 \textcolor{cyan}{3：geneOnChromAll}，\textcolor{orange}{that} 选择 \textcolor{cyan}{NOT Matching}，\textcolor{orange}{the pattern} 填写 \textcolor{cyan}{\_}，最后点击 \textcolor{orange}{Execute} 过滤数据。修改 \textcolor{orange}{Name} 为 \textcolor{cyan}{geneOnChromFilter}。
+				\end{enumerate}
+			\item 计算基因密度。
+				\begin{enumerate}
+					\item 整合染色体上的基因数目数据和染色体的长度信息。打开 \textcolor{purple}{Galaxy} 的 \textcolor{blue}{Join, Subtract and Group} 分组，点击其中的 \textcolor{blue}{Join two Datasets} 工具。其中，\textcolor{orange}{Join} 选择 \textcolor{cyan}{2：chromInfo}，\textcolor{orange}{using column} 选择 \textcolor{cyan}{c1}，\textcolor{orange}{with} 选择 \textcolor{cyan}{4： geneOnChromFilter}，\textcolor{orange}{and column} 选择 \textcolor{cyan}{c2}，其他参数默认即可，最后点击 \textcolor{orange}{Execute} 整合两套数据。
+					\item 计算每条染色体上的基因密度。打开 \textcolor{purple}{Galaxy} 的 \textcolor{blue}{Text Manipulation} 分组，点击其中的 \textcolor{blue}{Compute} 工具。在 \textcolor{orange}{Add expression} 中填写 \textcolor{cyan}{c4/c2*100000000}，其他参数默认即可，最后点击 \textcolor{orange}{Execute} 计算染色体上每100 Mb的基因数目。
+					\item 提取染色体号、长度及其上的基因数目、基因密度等有用信息。打开 \textcolor{purple}{Galaxy} 的 \textcolor{blue}{Text Manipulation} 分组，点击其中的 \textcolor{blue}{Cut} 工具。在 \textcolor{orange}{Cut columns} 中填写 \textcolor{cyan}{c1,c2,c4,c6}，其他参数默认即可，最后点击 \textcolor{orange}{Execute} 提取需要的几列。
+					\item 根据染色体长度排序数据。打开 \textcolor{purple}{Galaxy} 的 \textcolor{blue}{Filter and Sort} 分组，点击其中的 \textcolor{blue}{Sort} 工具。其中，\textcolor{orange}{on column} 选择 \textcolor{cyan}{c2}，其他参数默认，最后点击 \textcolor{orange}{Execute} 即可根据染色体长度将数据进行排序。修改 \textcolor{orange}{Name} 属性为 \textcolor{cyan}{geneNumberDensity}。
+				\end{enumerate}
+			\item 绘制并查看条形图。 
+				\begin{enumerate}
+					\item 绘图。打开 \textcolor{purple}{Galaxy} 的 \textcolor{blue}{Graph/Display Data} 分组，点击其中的 \textcolor{blue}{Bar chart} 工具。其中，在 \textcolor{orange}{Numerical columns} 中点选 \textcolor{cyan}{c3} 和 \textcolor{cyan}{c4}，其他参数适当调整后，点击 \textcolor{orange}{Execute} 即可将上一步的结果可视化。
+					\item 查看并保存图片。点击数据右侧的眼睛图表，可以在 \textcolor{purple}{Galaxy} 中查看绘制的条形图；也可点击数据左下方的软盘图表，将图片保存至本地。
+					\item 尝试使用 \textcolor{blue}{Bar chart} 工具分开绘制基因数目和基因密度的条形图。
+				\end{enumerate}
+			\item 分析结果。如：哪条染色体上的基因数目最多/少？哪条染色体上的基因密度最高/低？数目最多和密度最高的染色体是不是同一条？从中学到了什么\footnote{提示：数据要经过标准化后才能互相比较。}？此外，还可以把得到的结果和教材或文献中的数据进行比较。
+		\end{enumerate}
+	\item[学时分配] \ 
+		\begin{description}
+			\item[设计讲解：] 2学时
+			\item[实验：] 18学时
+			\item[总结和课程设计报告：] 12学时 
+			\item[答辩：] 4学时
+			\item[总共：] 36学时 
+			\item[地点：] 教一楼205室生物信息学实验室 
+		\end{description}
+	\item[资源网站] \ 
+		\begin{enumerate}
+			\item Galaxy Test：\href{https://test.g2.bx.psu.edu/}{https://test.g2.bx.psu.edu/}
+			\item Galaxy Main：\href{https://main.g2.bx.psu.edu/}{https://main.g2.bx.psu.edu/}
+		\end{enumerate}
+\end{description}
+
+
+\newpage
+%Galaxy2
+\begin{description}
+	\item[名称：] 基于Galaxy平台分析***物种SNP在不同特征区域中的分布
+	\item[总学时：] 36
+	\item[学分：] 2
+	\item[对象：] 生物医学工程系生物技术与生物信息专业本科生
+	\item[指导教师：] 伊现富
+	\item[课程设计目的：] 在学习分子生物学、生物计算技术、生物网络数据库、生物信息学课程的基础上，培养学生分析大规模基因组数据的能力。此题目旨在帮助学生熟悉易用、强大且日渐流行的Galaxy生物信息学分析平台，并使用此平台处理基因组数据，分析SNP在不同特征区域上的分布情况。
+	\item[实验内容] \
+		\begin{enumerate}
+			\item 选择合适的物种\textit{S}。
+			\item 熟悉Galaxy界面。
+			\item 获取该物种不同特征区域（如：5' UTR外显子、编码区外显子和3' UTR外显子）的信息。
+			\item 获取该物种dbSNP数据库的SNP信息。
+			\item 计算不同特征区域的SNP数目和密度。
+			\item 将SNP密度进行标准化。
+			\item 比较不同特征区域的SNP密度。
+			\item 对所得结果进行综合分析。
+		\end{enumerate}
+	\item[技术指标] \
+		\begin{enumerate}
+			\item 基因组范围不同特征区域的数据。
+			\item 基因组范围上SNP的数据。
+			\item 不同特征区域SNP的数目。
+			\item 不同特征区域SNP的密度。
+			\item 标准化之后的SNP密度。
+			\item 对所得结果的分析与理解。
+			\item 课程设计报告书：（1）名称；（2）目的和任务；（3）实验步骤；（4）实验结果；（5）实验结果分析和讨论。
+			\item 课程设计答辩的PPT文件（答辩时间5分钟）。
+		\end{enumerate}
+	\item[实验步骤] \ 
+		\begin{enumerate}
+			\item 选择完成基因组测序且注释比较完善的物种，如：人、小鼠，等。\footnote{此处以“人”为例详述步骤。}
+			\item 打开 \textcolor{purple}{Galaxy Main} 主页，熟悉其界面布局。
+			\item 获取基因组范围不同特征区域的基本信息。
+				\begin{enumerate}
+					\item 获取数据。打开 \textcolor{purple}{Galaxy} 的 \textcolor{blue}{Get Data} 分组，点击\textcolor{blue}{UCSC Main} 进入 \textcolor{purple}{UCSC Table} 界面。在 \textcolor{purple}{UCSC Table} 界面中，\textcolor{orange}{clade} 选择 \textcolor{cyan}{Mammal}、\textcolor{orange}{genome} 选择 \textcolor{cyan}{Human}、\textcolor{orange}{assembly} 选择 \textcolor{cyan}{Feb. 2009 (GRCh37/hg19)}、\textcolor{orange}{group} 选择 \textcolor{cyan}{Genes and Gene Prediction Tracks}、\textcolor{orange}{track} 选择 \textcolor{cyan}{RefSeq Genes}、\textcolor{orange}{table} 选择 \textcolor{cyan}{refGene}、\textcolor{orange}{region} 点选 \textcolor{cyan}{genome}、\textcolor{orange}{output format} 选择 \textcolor{cyan}{BED – browser extensible data}、\textcolor{orange}{Send output to} 勾选 \textcolor{cyan}{Galaxy}、\textcolor{orange}{file type returned} 点选 \textcolor{cyan}{plain text}，之后点击 \textcolor{orange}{get output}，新界面中的 \textcolor{orange}{Create one BED record per} 点选 \textcolor{cyan}{5' UTR Exons}，最后点击 \textcolor{orange}{Send query to Galaxy} 即可将5' UTR外显子的基本信息载入到 \textcolor{purple}{Galaxy} 平台的工作空间中。
+					\item 修改属性。为了便于区分工作空间中的不同数据，可以点击 \textcolor{purple}{UCSC Main on Human: refGene (genome)} 数据集右侧的铅笔图标，修改数据集的属性，如：修改 \textcolor{orange}{Name} 为 \textcolor{cyan}{5UTR}，之后点击 \textcolor{orange}{Save} 更新其属性。
+					\item 重复操作。重复上述步骤，在 \textcolor{orange}{Create one BED record per} 分别点选 \textcolor{cyan}{Coding Exons} 和 \textcolor{cyan}{3' UTR Exons}，将编码区外显子和3' UTR外显子的基本信息载入到 \textcolor{purple}{Galaxy} 平台的工作空间中。
+				\end{enumerate}
+			\item 获取dbSNP数据库中SNP的信息。
+				\begin{enumerate}
+					\item 获取数据。在 \textcolor{purple}{UCSC Table} 界面中，修改 \textcolor{orange}{group} 为 \textcolor{cyan}{Variation and Repeats}、\textcolor{orange}{track} 为 \textcolor{cyan}{Common SNPs(135)}、\textcolor{orange}{table} 为 \textcolor{cyan}{snp135Common}，待界面刷新后，点选 \textcolor{orange}{Create one BED record per} 中的 \textcolor{cyan}{Whole Gene}，最后点击 \textcolor{orange}{Send query to Galaxy} 即可将SNP的基本信息载入到 \textcolor{purple}{Galaxy} 平台的工作空间中。
+					\item 修改属性。为便于区分不同数据，可以点击 \textcolor{purple}{UCSC Main on Human: snp135Common (genome)} 数据集右侧的铅笔图表，修改 \textcolor{orange}{Name} 为 \textcolor{cyan}{SNP135}，点击 \textcolor{orange}{Save} 更新数据属性。
+				\end{enumerate}
+			\item 计算不同特征区域中的SNP数目及其密度。 
+				\begin{enumerate}
+					\item 关联特征区域和SNP的信息。打开 \textcolor{purple}{Galaxy} 的 \textcolor{blue}{Operate on Genomic Intervals} 分组，点击其中的 \textcolor{blue}{Join} 工具。其中，\textcolor{orange}{Join（First dataset）} 选择 \textcolor{cyan}{5UTR} 数据，\textcolor{orange}{with（Second dataset）} 选择 \textcolor{cyan}{SNP135} 数据，其余参数默认即可，最后点击 \textcolor{orange}{Execute} 即可将特征区域的信息与SNP的信息关联起来。\footnote{注意：此步舍弃了没有SNP的特征区域。}
+					\item 计算特征区域中的SNP数目。打开 \textcolor{purple}{Galaxy} 的 \textcolor{blue}{Statistics} 分组，点击其中的 \textcolor{blue}{Count} 工具。其中，\textcolor{orange}{from dataset} 选择上一步的结果，\textcolor{orange}{Count occurrences of values in column(s)} 点选 \textcolor{cyan}{c4}，最后点击 \textcolor{orange}{Execute} 即可计算出每个5' UTR外显子上的SNP数目。
+					\item 恢复计数结果中的特征区域信息。打开 \textcolor{purple}{Galaxy} 的 \textcolor{blue}{Join, Subtract and Group} 分组，点击其中的 \textcolor{blue}{Join two Datasets} 工具。其中，\textcolor{orange}{Join} 选择上一步的结果，\textcolor{orange}{using column} 选择 \textcolor{cyan}{c2}，\textcolor{orange}{with} 选择 \textcolor{cyan}{5UTR} 数据，\textcolor{orange}{and column} 选择 \textcolor{cyan}{c4}，其他参数默认即可，最后点击 \textcolor{orange}{Execute} 整合两套数据。
+					\item 计算每个特征区域的长度。打开 \textcolor{purple}{Galaxy} 的 \textcolor{blue}{Text Manipulation} 分组，点击其中的 \textcolor{blue}{Compute} 工具。在\textcolor{orange}{Add expression} 中填写 \textcolor{cyan}{c5-c4}，其他参数默认即可，最后点击 \textcolor{orange}{Execute} 计算每个特征区域的长度。
+					\item 提取数据集中的有用信息。打开 \textcolor{purple}{Galaxy} 的 \textcolor{blue}{Text Manipulation} 分组，点击其中的 \textcolor{blue}{Cut} 工具。在 \textcolor{orange}{Cut columns} 中填写 \textcolor{cyan}{c3,c9,c1}，其他参数默认即可，最后点击 \textcolor{orange}{Execute} 提取需要的几列。
+					\item 按染色体整理数据。打开 \textcolor{purple}{Galaxy} 的 \textcolor{blue}{Join, Subtract and Group} 分组，点击其中的 \textcolor{blue}{group} 工具。其中，\textcolor{orange}{Select data} 选择上一步的结果，\textcolor{orange}{Group by column} 选择 \textcolor{cyan}{c1}；之后，点击 \textcolor{orange}{Add new Operation}，\textcolor{orange}{Type} 选择 \textcolor{cyan}{Sum}，\textcolor{orange}{on column} 选择 \textcolor{cyan}{c2}；之后，继续点击 \textcolor{orange}{Add new Operation}，\textcolor{orange}{Type} 选择 \textcolor{cyan}{Sum}，\textcolor{orange}{on column} 选择 \textcolor{cyan}{c3}；其他参数默认，最后点击\textcolor{orange}{Execute} 即可。
+					\item 过滤数据。打开 \textcolor{purple}{Galaxy} 的 \textcolor{blue}{Filter and Sort} 分组，点击其中的 \textcolor{blue}{Select} 工具。其中，\textcolor{orange}{Select lines from} 选择上一步的结果，\textcolor{orange}{that} 选择 \textcolor{cyan}{NOT Matching}，\textcolor{orange}{the pattern} 填写  \textcolor{cyan}{\_}，最后点击 \textcolor{orange}{Execute} 过滤数据。 
+					\item 计算每个特征区域上SNP的密度。打开 \textcolor{purple}{Galaxy} 的 \textcolor{blue}{Text Manipulation} 分组，点击其中的 \textcolor{blue}{Compute} 工具。在 \textcolor{orange}{Add expression} 中填写 \textcolor{cyan}{c3/c2*1000}，其他参数默认即可，最后点击 \textcolor{orange}{Execute} 计算SNP的密度。将 \textcolor{orange}{Name} 属性修改为 \textcolor{cyan}{5UTRSNP}。
+				\end{enumerate}
+			\item 标准化SNP密度。
+				\begin{enumerate}
+					\item 计算基因组上特征的总长度及SNP的总数目。打开 \textcolor{purple}{Galaxy} 的 \textcolor{blue}{Statistics} 分组，点击其中的 \textcolor{blue}{Summary Statistics} 工具。其中，\textcolor{orange}{Summary statistics on} 选择 \textcolor{cyan}{5UTRSNP}，\textcolor{orange}{Column or expression} 填写 \textcolor{cyan}{c2} 或 \textcolor{cyan}{c3}，最后点击 \textcolor{orange}{Execute} 分别计算特征总长L及SNP的总数N。
+					\item 将每条染色体上的SNP密度进行标准化。首先计算 $M=N/L*1000$ 。然后，打开 \textcolor{purple}{Galaxy} 的 \textcolor{blue}{Text Manipulation} 分组，点击其中的 \textcolor{blue}{Compute} 工具。在 \textcolor{orange}{Add expression} 中填写 \textcolor{cyan}{c4-M}，\textcolor{orange}{as a new column to} 选择 \textcolor{cyan}{5UTRSNP}，最后点击 \textcolor{orange}{Execute} 标准化SNP密度。将 \textcolor{orange}{Name} 属性修改为 \textcolor{cyan}{5UTRSNPNormalized}。
+				\end{enumerate}
+			\item 比较不同特征区域的SNP密度。
+				\begin{enumerate}
+					\item 重复第5、6两步\footnote{提示：可以提取工作流程后，修改输入数据，自动化重复前述操作！}，获得其他特征区域的SNP密度。
+					\item 比较不同特征区域的SNP密度。打开 \textcolor{purple}{Galaxy} 的 \textcolor{blue}{Join, Subtract and Group} 分组，点击其中的 \textcolor{blue}{Join two Datasets} 工具。其中，\textcolor{orange}{Join} 选择 \textcolor{cyan}{5UTRSNPNormalized} 数据，\textcolor{orange}{using column} 选择 \textcolor{cyan}{c1}，\textcolor{orange}{with} 选择 \textcolor{cyan}{codingSNPNormalized} 数据，\textcolor{orange}{and column} 选择 \textcolor{cyan}{c1}，其他参数默认即可，最后点击 \textcolor{orange}{Execute} 整合5' UTR和编码区两套数据。以类似的操作，再将3' UTR数据整合进去。
+				\end{enumerate}
+			\item 综合分析所得结果\footnote{\textcolor{red}{敬请注意：}因为处理过程中的取舍问题，请不要把此处的计算结果当作常识来使用！}。如：对于同一条染色体来说，不同特征区域的SNP密度有没有差别？对于同一类特征区域来说，不同染色体的SNP密度有没有差别？此外，还可以将两者结合起来进行分析，并尝试对分析结果进行解释。
+		\end{enumerate}
+	\item[学时分配] \ 
+		\begin{description}
+			\item[设计讲解：] 2学时
+			\item[实验：] 18学时
+			\item[总结和课程设计报告：] 12学时 
+			\item[答辩：] 4学时
+			\item[总共：] 36学时 
+			\item[地点：] 教一楼205室生物信息学实验室 
+		\end{description}
+	\item[资源网站] \ 
+		\begin{enumerate}
+			\item Galaxy Main：\href{https://main.g2.bx.psu.edu/}{https://main.g2.bx.psu.edu/}
+			\item Galaxy Test：\href{https://test.g2.bx.psu.edu/}{https://test.g2.bx.psu.edu/}
+		\end{enumerate}
+\end{description}
+\end{document}
